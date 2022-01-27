@@ -13,21 +13,16 @@ from mplfinance.original_flavor import candlestick2_ohlc
 
 
 
-dict_={'a':[11,21,31],'b':[12,22,32]}
-df=pd.DataFrame(dict_)
-#type(df)
-print(df.head())
-
 cg = CoinGeckoAPI()
 
-bitcoin_data = cg.get_coin_market_chart_by_id(id='bitcoin', vs_currency='usd', days=30)
+bitcoin_data = cg.get_coin_market_chart_by_id(id='bitcoin', vs_currency='usd', days=30) # we get the data of the bit coin of last 30
 #type(bitcoin_data )
 
-bitcoin_price_data = bitcoin_data['prices']
+bitcoin_price_data = bitcoin_data['prices'] # as i want only the price of the coin so i have chosen only the price we can select the marketprice, value and quantity of the coin and also the price
 
 #bitcoin_price_data[0:5]
 data = pd.DataFrame(bitcoin_price_data, columns=['TimeStamp', 'Price'])
-data['date'] = data['TimeStamp'].apply(lambda d: datetime.date.fromtimestamp(d/1000.0))
+data['date'] = data['TimeStamp'].apply(lambda d: datetime.date.fromtimestamp(d/1000.0)) #converts the time stamp into date and time for the better understanding by creating an other column called date
 
 
 ##  CANDLESTICK PLOTING
